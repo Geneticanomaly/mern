@@ -1,13 +1,10 @@
 import express, {Request, Response, NextFunction} from "express";
 import mongoose from "mongoose";
 import DeckModel from "./models/Deck";
-/* import cors from "cors"; */
 import {config} from "dotenv";
 config();
 
 var cors = require("cors");
-
-/* import cors from "cors"; */
 
 const port = 5000;
 const app = express();
@@ -21,6 +18,12 @@ app.use(express.json());
 
 app.get("/", (req: Request, res: Response) => {
     res.send("Hello world");
+});
+
+app.get("/decks", async (req: Request, res: Response) => {
+    const decks = await DeckModel.find();
+    console.log(decks);
+    res.json(decks);
 });
 
 app.post("/decks", async (req: Request, res: Response, next: NextFunction) => {
