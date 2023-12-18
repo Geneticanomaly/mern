@@ -2,6 +2,9 @@ import express, {Request, Response, NextFunction} from "express";
 import mongoose from "mongoose";
 import DeckModel from "./models/Deck";
 
+import {config} from "dotenv";
+config();
+
 const port = 5000;
 const app = express();
 
@@ -27,11 +30,7 @@ app.post("/decks", async (req: Request, res: Response, next: NextFunction) => {
     }
 });
 
-mongoose
-    .connect(
-        "mongodb+srv://flashcardsage:8SVssrq7Frm9HRjT@cluster0.eglu7s3.mongodb.net/?retryWrites=true&w=majority"
-    )
-    .then(() => {
-        console.log("listening on port " + port);
-        app.listen(port);
-    });
+mongoose.connect(process.env.MONGO_URL ?? "").then(() => {
+    console.log("listening on port " + port);
+    app.listen(port);
+});
