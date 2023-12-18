@@ -1,13 +1,22 @@
 import express, {Request, Response, NextFunction} from "express";
 import mongoose from "mongoose";
 import DeckModel from "./models/Deck";
-
+/* import cors from "cors"; */
 import {config} from "dotenv";
 config();
+
+var cors = require("cors");
+
+/* import cors from "cors"; */
 
 const port = 5000;
 const app = express();
 
+app.use(
+    cors({
+        origin: "*",
+    })
+);
 app.use(express.json());
 
 app.get("/", (req: Request, res: Response) => {
