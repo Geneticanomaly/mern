@@ -1,36 +1,27 @@
-import {useEffect, useState} from "react";
+import {useEffect, useState, useRef} from "react";
 /* import {TiDelete} from "react-icons/ti"; */
 import {CiEdit} from "react-icons/ci";
 import "./App.css";
-
-type Deck = {
-    _id: string;
-    title: string;
-    edit?: boolean;
-};
+import {Link} from "react-router-dom";
+import {deleteDeck} from "./api/deleteDeck";
+import {createDeck} from "./api/createDeck";
+import {Deck, getDecks} from "./api/getDecks";
 
 function App() {
     const [title, setTitle] = useState("");
     const [decks, setDecks] = useState<Deck[]>([]);
     const [editDeckId, setEditDeckId] = useState<string | null>(null);
-    /* const [edit, setEdit] = useState(false); */
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const res = await fetch("http://localhost:5000/decks", {
-            method: "POST",
-            headers: {"Content-type": "application/json"},
-            body: JSON.stringify({title: title}),
-        });
-        const deck = await res.json();
+
+        const deck = await createDeck(title);
         setDecks([...decks, deck]);
         setTitle("");
     };
 
     const handleDelete = async (deckId: string) => {
-        await fetch(`http://localhost:5000/decks/${deckId}`, {
-            method: "DELETE",
-        });
+        deleteDeck(deckId);
         setDecks(decks.filter((deck) => deck._id !== deckId));
     };
 
@@ -64,15 +55,20 @@ function App() {
     };
 
     useEffect(() => {
-        const getDecks = async () => {
-            const res = await fetch("http://localhost:5000/decks");
-            const data: Deck[] = await res.json();
+        const fetchDecks = async () => {
+            const data: Deck[] = await getDecks();
 
             const decksWithEdit: Deck[] = data.map((deck) => ({...deck, edit: false}));
             setDecks(decksWithEdit);
         };
-        getDecks();
+        fetchDecks();
     }, []);
+
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        inputRef.current?.focus();
+    }, [editDeckId]);
 
     return (
         <div className="App">
@@ -89,13 +85,16 @@ function App() {
                             {editDeckId === deck._id ? (
                                 <input
                                     className="edit-text"
+                                    ref={inputRef}
                                     type="text"
                                     value={deck.title}
                                     onChange={(e) => handleEditChange(e, deck._id)}
                                     onKeyDown={(e) => handleEnterKeyPress(e)}
                                 />
                             ) : (
-                                deck.title
+                                <Link className="link" to={`/decks/${deck._id}`}>
+                                    {deck.title}
+                                </Link>
                             )}
                         </li>
                     ))}
