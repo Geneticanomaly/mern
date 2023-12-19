@@ -9,7 +9,6 @@
     display: grid;
     grid-gap: 10px;
     text-align: center;
-    /* width: 500px; */
     margin: 0 auto;
     grid-template-columns: repeat(3, 1fr);
     color: black;
@@ -25,15 +24,11 @@
     background: white;
     border: 1px solid white;
     border-radius: 10px;
-    /* color: black; */
-
-    /* text-decoration: none; */
 }
 
 .decks li:hover {
     border: 1px solid #646cff;
     background-color: #eee;
-    cursor: pointer;
     color: black;
 }
 
@@ -101,7 +96,7 @@
 
 .btn-delete:hover {
     cursor: pointer;
-    background-color: rgb(224, 2, 2);
+    background-color: rgb(255, 86, 86);
     color: #fff;
     transition: 200ms ease;
 }
@@ -121,7 +116,8 @@
 }
 
 .btn-edit:hover {
-    background-color: rgb(0, 62, 231);
+    background-color: #646cff;
+    cursor: pointer;
     color: #fff;
     transition: 200ms ease;
 }
@@ -134,4 +130,27 @@
 .edit-text:focus {
     outline: none;
     border: 1px solid #646cff;
+}
+
+/* MEDIA QUERIES */
+
+@media screen and (max-width: 700px) {
+    .decks {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 475px) {
+    .decks li {
+        width: 150px;
+    }
+    .deck-label {
+        font-size: 14px;
+    }
+    .input-deck {
+        width: 150px;
+    }
+    .btn {
+        font-size: 14px;
+    }
 }
