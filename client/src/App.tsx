@@ -1,6 +1,6 @@
 import "./App.css";
 
-import Deck from "./components/Deck";
+import DeckCards from "./components/DeckCards";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import ListDecks from "./components/ListDecks";
 import Header from "./components/header/Header";
@@ -17,7 +17,7 @@ function App() {
                     <Route path="/" element={<ListDecks />} />
                 </Routes>
                 <Routes>
-                    <Route path="/decks/:deckId" element={<Deck />} />
+                    <Route path="/decks/:deckId" element={<DeckCards />} />
                 </Routes>
             </div>
         </Router>

@@ -4,8 +4,9 @@ const ObjectId = Schema.ObjectId;
 
 const DeckSchema = new Schema({
     title: String,
+    cards: [String],
 });
 
-const DeckModel = mongoose.model("Deck", DeckSchema);
+const Deck = mongoose.model("Deck", DeckSchema);
 
-export default DeckModel;
+export default Deck;
