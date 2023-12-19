@@ -3,6 +3,7 @@ import {API_URL} from "./config";
 export type Deck = {
     _id: string;
     title: string;
+    cards: string[];
     edit?: boolean;
 };
 

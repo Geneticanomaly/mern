@@ -9,6 +9,28 @@
     padding-top: 10vh;
 }
 
+.cards {
+    display: grid;
+    grid-gap: 10px;
+    text-align: center;
+    margin: 0 auto;
+    grid-template-columns: repeat(3, 1fr);
+    color: black;
+}
+
+.cards li {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 220px;
+    background: white;
+    border: 1px solid white;
+    border-radius: 10px;
+    overflow-y: auto;
+}
+
 .decks {
     display: grid;
     grid-gap: 10px;
