@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import {deleteDeck} from "../api/deleteDeck";
 import {createDeck} from "../api/createDeck";
 import {Deck, getDecks} from "../api/getDecks";
+import editDeck from "../api/editDeck";
 
 const ListDecks = () => {
     const [title, setTitle] = useState("");
@@ -44,11 +45,15 @@ const ListDecks = () => {
                 title: deck._id === deckId ? e.target.value : deck.title,
             }))
         );
+        setTitle(e.target.value);
     };
 
-    const handleEnterKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const handleEnterKeyPress = (e: React.KeyboardEvent<HTMLInputElement>, deckId: string) => {
         if (e.key === "Enter") {
+            console.log(title);
+            editDeck(deckId, title);
             setEditDeckId(null);
+            setTitle("");
         }
     };
 
@@ -88,7 +93,7 @@ const ListDecks = () => {
                                     type="text"
                                     value={deck.title}
                                     onChange={(e) => handleEditChange(e, deck._id)}
-                                    onKeyDown={(e) => handleEnterKeyPress(e)}
+                                    onKeyDown={(e) => handleEnterKeyPress(e, deck._id)}
                                 />
                             ) : (
                                 <Link className="link" to={`/decks/${deck._id}`}>
