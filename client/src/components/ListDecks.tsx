@@ -70,6 +70,7 @@ const ListDecks = () => {
 
     return (
         <>
+            <h1>Decks</h1>
             {
                 <div className="decks">
                     {decks.map((deck) => (
